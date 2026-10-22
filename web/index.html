@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f1e9">
+  <title>六子棋 · 本地棋室</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="room">
+    <header class="masthead">
+      <div class="brand"><span class="brand-stones" aria-hidden="true"></span><div><h1>六子棋<span class="title-dot">.</span></h1><p>CONNECT SIX</p></div></div>
+      <div class="room-label"><span class="live-dot"></span> 本地棋室 <span class="label-divider"></span> 每方 10 分钟</div>
+    </header>
+
+    <main class="layout">
+      <section class="play-area" aria-label="六子棋棋盘">
+        <div class="board-heading"><div><p class="eyebrow">THE BOARD <span>十五路 · 无禁手</span></p><h2 id="status-title">准备好，下一局。</h2></div><span id="round-badge" class="round-badge">等待开局</span></div>
+        <div class="board-frame"><svg id="board" viewBox="0 0 640 640" aria-label="15 乘 15 六子棋棋盘"></svg></div>
+        <div class="board-caption"><span id="board-hint">选择对局模式，点击「开始对局」。</span><span class="caption-key"><i></i> 最近落子</span></div>
+        <p class="keyboard-help">方向键移动焦点 · Enter 预选 · Esc 清空预选</p>
+      </section>
+
+      <aside class="sidebar" aria-label="对局控制">
+        <section class="setup-panel">
+          <div class="section-heading"><h2>对局设置</h2><span>01 / SETUP</span></div>
+          <div class="mode-switch" role="group" aria-label="对局模式">
+            <button type="button" class="mode-option selected" data-mode="single" aria-pressed="true">单人对弈<span>与 AI 切磋</span></button>
+            <button type="button" class="mode-option" data-mode="local" aria-pressed="false">双人对弈<span>同机轮流落子</span></button>
+          </div>
+          <div id="color-setting" class="color-setting"><span>我的执子</span><div role="group" aria-label="我的执子颜色"><button type="button" class="color-option selected" data-color="1" aria-pressed="true"><i class="mini-stone black"></i>黑棋先手</button><button type="button" class="color-option" data-color="-1" aria-pressed="false"><i class="mini-stone white"></i>白棋后手</button></div></div>
+        </section>
+
+        <section class="clock-section" aria-label="双方累计时钟">
+          <div id="black-clock-card" class="clock-card"><div class="player-identity"><i class="player-stone black"></i><div><h3>黑方<span id="black-role">你</span></h3><p id="black-state">先手 · 首回合一子</p></div></div><time id="black-clock" aria-label="黑方剩余时间">10:00</time><div class="clock-track"><span id="black-progress"></span></div></div>
+          <div id="white-clock-card" class="clock-card"><div class="player-identity"><i class="player-stone white"></i><div><h3>白方<span id="white-role">AI</span></h3><p id="white-state">后手 · 每回合两子</p></div></div><time id="white-clock" aria-label="白方剩余时间">10:00</time><div class="clock-track"><span id="white-progress"></span></div></div>
+        </section>
+
+        <section class="action-panel">
+          <div class="turn-message"><span id="turn-dot" class="turn-dot"></span><p id="turn-message" role="status" aria-live="polite">棋盘就绪，等你开局。</p></div>
+          <button id="primary-action" type="button" class="primary-button">开始对局 <span aria-hidden="true">↗</span></button>
+          <div class="secondary-actions"><button id="clear-action" type="button" disabled>清空预选</button><button id="undo-action" type="button" disabled>悔棋</button><button id="restart-action" type="button" disabled>重新开始</button></div>
+          <p id="ai-error" class="error-message" role="alert" hidden></p>
+        </section>
+
+        <section class="history-panel"><div class="section-heading"><h2>落子记录</h2><span id="history-count">00 手</span></div><div id="history-empty" class="history-empty"><span class="empty-cross" aria-hidden="true"></span><p>棋局尚未开始</p><span>每一步，都从这里记起。</span></div><ol id="history-list" aria-label="落子历史"></ol></section>
+
+        <div class="rules-note"><span>棋室小记</span><p>首手一子，其后每手两子。横、竖或斜向连成六子及以上即胜。每方累计十分钟，超时判负，悔棋不返时。</p></div>
+      </aside>
+    </main>
+    <footer><span>一局之间，落子有思。</span><span>15 × 15 <i>／</i> CONNECT SIX</span></footer>
+  </div>
+  <dialog id="confirm-dialog"><form method="dialog"><p class="eyebrow">NEW GAME</p><h2 id="dialog-title">重新开始这一局？</h2><p id="dialog-message">当前棋局将被清空，双方时间恢复为 10 分钟。</p><p class="dialog-clock-note">确认期间，当前行动方继续计时。</p><div class="dialog-actions"><button value="cancel">继续对局</button><button value="confirm" class="primary-button">确认重置</button></div></form></dialog>
+  <script type="module" src="/app.mjs"></script>
+</body>
+</html>
